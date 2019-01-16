@@ -257,6 +257,11 @@ class ResultAnalysis:
         char = '''{} = CALC_CHAMP(reuse = {},
                        RESULTAT = {},
                        FORCE = '{}',);
+        
+        IMPR_RESU(FORMAT='GMSH',
+          RESU=_F(MAILLAGE=MAIL,
+                  RESULTAT=RESU,
+                  NOM_CHAM='DEPL',),);
     
 {} = POST_RELEVE_T(ACTION = _F(OPERATION = 'EXTRACTION',
                                  INTITULE = 'FORCE',
@@ -274,10 +279,7 @@ IMPR_TABLE(TABLE = {}, UNITE = 4); \n \n'''.format(self.simulation.name,
             a.write(char)
         
 
-#IMPR_RESU(FORMAT='GMSH',
-#          RESU=_F(MAILLAGE=MAIL,
-#                  RESULTAT=RESU,
-#                  NOM_CHAM='DEPL',),);
+
                 
 class CodeAster:
     def __init__(self, name, file_name, mesh, node_group, modele, material, 
