@@ -1684,7 +1684,7 @@ class Plane3D(Primitive3D):
         self.vectors[1].MPLPlot(ax, starting_point=self.origin, color='g')
         return fig, ax
 
-    def Babylon(self):
+    def babylon_script(self):
         s = 'var myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", {width: 0.5, height: 0.5, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);\n'
         s += 'myPlane.setPositionWithLocalVector(new BABYLON.Vector3({},{},{}));\n'.format(self.origin[0], self.origin[1], self.origin[2])
 
@@ -2529,7 +2529,7 @@ class LineSegment3D(Edge3D):
     def to_line(self):
         return Line3D(*self.points)
 
-    def Babylon(self, color=(1, 1, 1), name='line',  type_='line', parent=None):
+    def babylon_script(self, color=(1, 1, 1), name='line',  type_='line', parent=None):
         if type_ == 'line' or type_ == 'dashed':
             s = 'var myPoints = [];\n'
             s += 'var point1 = new BABYLON.Vector3({},{},{});\n'.format(*self.points[0])
