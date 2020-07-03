@@ -196,6 +196,10 @@ def sin_cos_angle(u1, u2):
     return theta
 
 def delete_double_pos(points, triangles):
+    print('number of points', len(points))
+    print('number of triangles', len(triangles))
+    
+    print(triangles)
     
     points_to_indexes = {}
     
@@ -204,18 +208,25 @@ def delete_double_pos(points, triangles):
             points_to_indexes[point] = [index]
         else:
             points_to_indexes[point].append(index)
+           
+    # print('pti')
+    # print(points_to_indexes)
             
     new_points = []
-    index_to_modified_index = {}
+    new_indices = {}
     for i, (point, indexes) in enumerate(points_to_indexes.items()):
         new_points.append(point)
-        index_to_modified_index[indexes[0]] = i
+        for index in indexes:
+            new_indices[index] = i
+        
+    print('new_indices', sorted(new_indices.keys()))
+    print(len(new_indices))
     
-    index_to_new_index = {}
+    # index_to_new_index = {}
     
-    for indexes in points_to_indexes.values():
-        for index in indexes[1:]:
-            index_to_new_index[index] = indexes[0]
+    # for indexes in points_to_indexes.values():
+    #     for index in indexes[1:]:
+    #         index_to_new_index[index] = indexes[0]
     
     new_triangles = []
     # print('triangles', triangles)
@@ -224,15 +235,15 @@ def delete_double_pos(points, triangles):
             continue
         # print('face_triangles', face_triangles)
         new_face_triangles = []
-        for triangle in face_triangles:
-            # print('triangle', triangle)
+        for point_indices in face_triangles:
+            # print('triangle', point_indices)
             new_triangle = []
-            for index in triangle:
-                if index in index_to_new_index:
-                    modified_index = index_to_modified_index[index_to_new_index[index]]
-                else:
-                    modified_index = index_to_modified_index[index]
-                new_triangle.append(modified_index)
+            for index in point_indices:
+                # if index in index_to_new_index:
+                #     modified_index = index_to_modified_index[index_to_new_index[index]]
+                # else:
+                #     modified_index = index_to_modified_index[index]
+                new_triangle.append(new_indices[index])
             new_face_triangles.append(tuple(new_triangle))
         new_triangles.append(new_face_triangles)
         
